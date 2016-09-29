@@ -1,27 +1,30 @@
 import { Component, OnInit }          from '@angular/core';
 import { DataService }  from '../util/data.service';
-import { LoggerService }  from '../util/logger.service';
+import { ListService }  from './list.service';
+import { ListServiceProvider } from './list.service.provider';
 import { Mock } from '../mock';
 
 @Component({
   selector: 'my-list',
   templateUrl: 'app/list/list.component.html',
   providers : [
-    DataService
+    DataService, ListServiceProvider
   ]
 })
 
 
 export class ListComponent implements OnInit{
-  constructor(private dataService: DataService, private logger: LoggerService){}
+
+  constructor(private listService: ListService){}
 
   mocks: Mock[];
 
   ngOnInit(): void {
-    this.mocks = this.dataService.getMocks();
+    this.mocks = this.listService.getList();
   }
 
   onClick(mock: Mock){
-    this.logger.log(mock.name + " logging!!");
+    console.log("clicked!");
   }
+
 }

@@ -12,23 +12,23 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var core_1 = require('@angular/core');
-var mock_data_1 = require('../mock-data');
-var app_config_1 = require('../app.config');
-var DataService = (function () {
-    function DataService(config) {
-        this.endpoint = "";
-        this.endpoint = config.apiEndpoint;
+var logger_service_1 = require('../util/logger.service');
+var data_service_1 = require('../util/data.service');
+var ListService = (function () {
+    // what if this class is instantiated without logger? You justin use Optional decorator.
+    function ListService(logger, dataService) {
+        this.logger = logger;
+        this.dataService = dataService;
     }
-    DataService.prototype.getMocks = function () {
-        console.log("endpoint url : " + this.endpoint);
-        return mock_data_1.MockObjs;
+    ListService.prototype.getList = function () {
+        return this.dataService.getMocks();
     };
-    DataService = __decorate([
+    ListService = __decorate([
         core_1.Injectable(),
-        __param(0, core_1.Inject(app_config_1.APP_CONFIG)), 
-        __metadata('design:paramtypes', [Object])
-    ], DataService);
-    return DataService;
+        __param(0, core_1.Optional()), 
+        __metadata('design:paramtypes', [logger_service_1.LoggerService, data_service_1.DataService])
+    ], ListService);
+    return ListService;
 }());
-exports.DataService = DataService;
-//# sourceMappingURL=data.service.js.map
+exports.ListService = ListService;
+//# sourceMappingURL=list.service.js.map

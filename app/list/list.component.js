@@ -10,27 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var data_service_1 = require('../util/data.service');
-var logger_service_1 = require('../util/logger.service');
+var list_service_1 = require('./list.service');
+var list_service_provider_1 = require('./list.service.provider');
 var ListComponent = (function () {
-    function ListComponent(dataService, logger) {
-        this.dataService = dataService;
-        this.logger = logger;
+    function ListComponent(listService) {
+        this.listService = listService;
     }
     ListComponent.prototype.ngOnInit = function () {
-        this.mocks = this.dataService.getMocks();
+        this.mocks = this.listService.getList();
     };
     ListComponent.prototype.onClick = function (mock) {
-        this.logger.log(mock.name + " logging!!");
+        console.log("clicked!");
     };
     ListComponent = __decorate([
         core_1.Component({
             selector: 'my-list',
             templateUrl: 'app/list/list.component.html',
             providers: [
-                data_service_1.DataService
+                data_service_1.DataService, list_service_provider_1.ListServiceProvider
             ]
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataService, logger_service_1.LoggerService])
+        __metadata('design:paramtypes', [list_service_1.ListService])
     ], ListComponent);
     return ListComponent;
 }());

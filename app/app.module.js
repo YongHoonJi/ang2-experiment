@@ -14,6 +14,7 @@ var app_component_1 = require('./app.component');
 var list_component_1 = require('./list/list.component');
 var logger_service_1 = require('./util/logger.service');
 var advanced_logger_service_1 = require('./util/advanced.logger.service');
+var app_config_1 = require('./app.config');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -28,7 +29,9 @@ var AppModule = (function () {
             ],
             providers: [
                 // Class provider with dependencies : provide extended AdvancedLogger
-                { provide: logger_service_1.LoggerService, useClass: advanced_logger_service_1.AdvancedLoggerService }
+                // Not aliased! Creates two instances of `NewLogger`
+                { provide: logger_service_1.LoggerService, useClass: advanced_logger_service_1.AdvancedLoggerService },
+                { provide: app_config_1.APP_CONFIG, useValue: app_config_1.GLOBAL_APP_CONFIG }
             ],
             bootstrap: [
                 app_component_1.AppComponent
